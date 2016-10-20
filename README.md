@@ -27,7 +27,7 @@ eg: click<li>, delete it
 * add click to every <li>
 * add click listener to <ul>(recommend)
 
-```在`<ul>`节点上添加event listener：
+```在<ul>节点上添加event listener：
 language-javascript
 // Get the element, add a click listener...
 document.getElementsByTag("ul")[0].addEventListener("click", function(e) {
@@ -39,29 +39,47 @@ document.getElementsByTag("ul")[0].addEventListener("click", function(e) {
     }
 });
 ```
-- reference:
+reference:
 
   https://github.com/simongong/js-stackoverflow-highest-votes/blob/master/questions21-30/event-delegation.md
 * Explain how `this` works in JavaScript
 
 function example(){
+
 console.log(this.id);
+
 }
+
 function example2(e){
+
 console.log(e.id);
+
 }
+
 var targetElem = document.getElementById("imp");
+
 var target=document.getElementById("work");
-example();//show "undefinde", as example is a global function(直接调用的情况下), so \this\ is the obj of window. 
+
+example();//show "undefinde", as example is a global function(直接调用的情况下), so \this\ is the obj of window.
+
 targetElem.onclick=example;//show "imp", as example is a declared function in obj targetElem, so 通过object调用example，\this\ is targetElem.
+
 targetElem.onclick=function(){
+
   return example();
+
 }//show "undefined", 因为example还是被直接调用了，\this\ is window
+
 targetElem.onclick=function(){
+
   return example2(this);// \this\ is targetElem
+
 }//show"imp"
+
 targetElem.conclick=example.bind(target);//show"work", as bind() already change the context from targetElem to target, so \this\ is object target.
+
 - reference:
+
 -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
 
 * Explain how prototypal inheritance works
@@ -69,21 +87,149 @@ targetElem.conclick=example.bind(target);//show"work", as bind() already change 
 javaScript在ES6之前没有显式类继承，所以要实现继承类，需要用prototype property.是继承实例（无法实现继承接口）
 
 child.prototype=Object.create(father.prototype);
+
 child.prototype.constructor=child;//constructor要指定给child, 否则指向的是father
+
 可以override methode
 
 * What do you think of AMD vs CommonJS?
+
+
 * Explain why the following doesn't work as an IIFE: `function foo(){ }();`.
   * What needs to be changed to properly make it an IIFE?
+
+  IIFE (Immediately Invoked Function Expression) is a JavaScript function that runs as soon as it is defined.
+
+  The first pair of parentheses (function(){...}) turns the code within (in this case, a function) into an expression, and the second pair of parentheses (function(){...})() calls the function that results from that evaluated expression.
+
 * What's the difference between a variable that is: `null`, `undefined` or undeclared?
   * How would you go about checking for any of these states?
+
+null is the null value of a variable;
+
+undefined is a declared variable without valuation
+
+undeclared will be shown when you use a variable without declaration ahead.
+
 * What is a closure, and how/why would you use one?
+
+In javascript, there is no private methods or variables. But in javascript, child can access variables of father, but father can't access variables of child.So we can apply this to implement closure that you can't access and modified its variables directly from outside.
+
+application:
+
+implement private variables and functions:
+
+var counter=(function(){
+
+  var privateCount=0;
+
+  function changeBy(val){
+
+    privateCount+=val;
+
+  }
+
+  return {
+
+    increase: function(){
+
+      changeBy(1);
+
+    }
+
+    decrease: function(){
+
+      changeBy(-1);
+
+    }
+
+    value: function(){
+
+      return privateCount;
+
+    }
+
+  }
+
+})();
+
+we get a counter, an object with three methods: increase,decrease,value.
+
+console.log(counter.value()); // logs 0
+
+counter.increment();
+
+counter.increment();
+
+console.log(counter.value()); // logs 2
+
+counter.decrement();
+
+console.log(counter.value()); // logs 1
+
 * What's a typical use case for anonymous functions?
+
+anonymous functions is invoked at runtime
+
+  * use anonymous functions in function expression.
+
+  * as a parameter passed to a function.
+
+console.log((function(){return "alert!";})());
+
+  * as a return
+
+function getfunction(){
+
+  return function(){
+
+    alert("alert!");
+
+  }
+
+}  
+
 * How do you organize your code? (module pattern, classical inheritance?)
+
+
 * What's the difference between host objects and native objects?
+
+The native objects are sometimes referred to as “global objects” since they are the objects that JavaScript has made natively available for use.
+
+Below find the list of 9 native object constructors that come pre-packaged with JavaScript:
+
+✴ Number() ✴ String() ✴ Boolean() ✴ Object() ✴ Array() ✴ Function() ✴ Date() ✴ RegExp() ✴ Error()
+
+Host objects are not part of the ECMAScript implementation, but are available as objects during execution. Of course, the availability and behavior of a host object depends completely on what the host environment provides. For example, in the web browser environment the window/head object and all of its containing objects (excluding what JavaScript provides) are considered host objects.
+
 * Difference between: `function Person(){}`, `var person = Person()`, and `var person = new Person()`?
+
+  function Person(){} is function declaration.
+
+  var person = Person()， person is the obj returned by Person.
+
+  var person = new Person() is function constructor, person is a instance of class Person
+
+
 * What's the difference between `.call` and `.apply`?
+
+.call/.apply can be used for changing context of a function.
+
+.call(obj,parameter1[,parameter2,parameter3])
+
+.apply(obj,[parameter1,parameter2,parameter3,...])
+
 * Explain `Function.prototype.bind`.
+
+use bind to change context of a function(ES5)
+
+var targetElem = document.getElementById("imp");
+
+var target=document.getElementById("work");
+
+targetElem.conclick=fn.bind(target);//target will be the obj that be accessed by fn, not targetElem, as bind() already change the context from targetElem to target
+
+
 * When would you use `document.write()`?
 * What's the difference between feature detection, feature inference, and using the UA string?
 * Explain Ajax in as much detail as possible.
@@ -121,6 +267,7 @@ duplicate([1,2,3,4,5]); // [1,2,3,4,5,1,2,3,4,5]
 * What is event loop?
   * What is the difference between call stack and task queue?
 * Explain the differences on the usage of `foo` between `function foo() {}` and `var foo = function() {}`
+
 
 #### Testing Questions:
 
