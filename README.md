@@ -27,18 +27,27 @@ eg: click'li', delete it
 * add click to every 'li'
 * add click listener to 'ul'(recommend)
 
-```在'ul'节点上添加event listener：
+在'ul'节点上添加event listener：
 language-javascript
+
 // Get the element, add a click listener...
+
 document.getElementsByTag("ul")[0].addEventListener("click", function(e) {
+
     // e.target is the clicked element
+    
     // If it was a list item
+    
     if(e.target && e.target.nodeName == "LI") {
+    
         // List item found.  Do whatever you want.
+        
         console.log("List item ", e.target.id.replace("post-"), " was clicked!");
+        
     }
+    
 });
-```
+
 reference:
 
   https://github.com/simongong/js-stackoverflow-highest-votes/blob/master/questions21-30/event-delegation.md
