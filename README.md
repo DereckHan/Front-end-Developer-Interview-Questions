@@ -22,12 +22,12 @@ This file contains a number of front-end interview questions that can be used wh
 
 based on event bubbling, the event is first captured and handled by target element and then propagated to outer elements(father). So event delegation is a handling that binds a event to the outer element rather than to each of its children elements. It's a easy way for event listener to manage.
 
-eg: click<li>, delete it
+eg: click'li', delete it
 
-* add click to every <li>
-* add click listener to <ul>(recommend)
+* add click to every 'li'
+* add click listener to 'ul'(recommend)
 
-在<ul>节点上添加event listener：
+```在'ul'节点上添加event listener：
 language-javascript
 // Get the element, add a click listener...
 document.getElementsByTag("ul")[0].addEventListener("click", function(e) {
@@ -38,7 +38,7 @@ document.getElementsByTag("ul")[0].addEventListener("click", function(e) {
         console.log("List item ", e.target.id.replace("post-"), " was clicked!");
     }
 });
-
+```
 reference:
 
   https://github.com/simongong/js-stackoverflow-highest-votes/blob/master/questions21-30/event-delegation.md
@@ -196,9 +196,10 @@ function getfunction(){
 
 The native objects are sometimes referred to as “global objects” since they are the objects that JavaScript has made natively available for use.
 
-Below find the list of 9 native object constructors that come pre-packaged with JavaScript:
+Below find the list of native object constructors that come pre-packaged with JavaScript:
 
 ✴ Number() ✴ String() ✴ Boolean() ✴ Object() ✴ Array() ✴ Function() ✴ Date() ✴ RegExp() ✴ Error()
+✴ EvalError() ✴ RangeError() ✴ ReferenceError() ✴ SyntaxError() ✴ TypeError() ✴ URIError()
 
 Host objects are not part of the ECMAScript implementation, but are available as objects during execution. Of course, the availability and behavior of a host object depends completely on what the host environment provides. For example, in the web browser environment the window/head object and all of its containing objects (excluding what JavaScript provides) are considered host objects.
 
@@ -231,9 +232,32 @@ targetElem.conclick=fn.bind(target);//target will be the obj that be accessed by
 
 
 * When would you use `document.write()`?
-* What's the difference between feature detection, feature inference, and using the UA string?
+
+The write() method is mostly used for testing: If it is used after an HTML document is fully loaded, it will delete all existing HTML.
+
+When this method is not used for testing, it is often used to write some text to an output stream opened by the document.open(). Writing to a document that has already loaded without calling document.open() will automatically perform a document.open call. Once you have finished writing, it is recommended to call document.close(), to tell the browser to finish loading the page.
+
+* What's the difference between feature detection, feature inference, and using the User Agent string?
+
+Feature Detection is to verify if a feature works in a particular browser or not. The feature can be either a CSS property or a Java Script Method.
+
+Feature inference checks for a feature just like feature detection, but uses another function because it assumes it will also exist; eg: if x exists, we can assume that y exists.比如用document.getElementsByTagNameNS是否存在来判断是否是IE环境，以保证下面是用的feature是available的
+
+if you request a HTTP request to web server with a specific user agent, the responded contents and data related to this particular browser will  be displayed.
+
+feature detection reference:https://developer.mozilla.org/en-US/docs/Archive/Web/Browser_feature_detection
+
 * Explain Ajax in as much detail as possible.
+
+Ajax use XMLHttpRequest object to communicate with web server, send and receive information of Json,XML,HTML format. it's asynchronous, so it can do all of this without having to refresh the page. This lets you update portions of a page based upon user events
+
 * What are the advantages and disadvantages of using Ajax?
+
+advantage：it's asynchronous, so it can do all of this without having to refresh the page. This lets you update portions of a page based upon user events
+
+disadvantage：Security is less in AJAX application as all files are downloaded at client side;
+JavaScript disabled browsers cannot use the application
+
 * Explain how JSONP works (and how it's not really Ajax).
 * Have you ever used JavaScript templating?
   * If so, what libraries have you used?
@@ -267,7 +291,6 @@ duplicate([1,2,3,4,5]); // [1,2,3,4,5,1,2,3,4,5]
 * What is event loop?
   * What is the difference between call stack and task queue?
 * Explain the differences on the usage of `foo` between `function foo() {}` and `var foo = function() {}`
-
 
 #### Testing Questions:
 
