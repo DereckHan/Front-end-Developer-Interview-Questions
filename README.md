@@ -210,7 +210,7 @@ Below find the list of native object constructors that come pre-packaged with Ja
 ✴ Number() ✴ String() ✴ Boolean() ✴ Object() ✴ Array() ✴ Function() ✴ Date() ✴ RegExp() ✴ Error()
 ✴ EvalError() ✴ RangeError() ✴ ReferenceError() ✴ SyntaxError() ✴ TypeError() ✴ URIError()
 
-Host objects are not part of the ECMAScript implementation, but are available as objects during execution. Of course, the availability and behavior of a host object depends completely on what the host environment provides. For example, in the web browser environment the window/head object and all of its containing objects (excluding what JavaScript provides) are considered host objects.
+Host objects are not part of the ECMAScript implementation, but are available as objects during execution. Of course, the availability and behavior of a host object depends completely on what the host environment provides. For example, in the web browser environment the window/head object and all of its containing objects (excluding what JavaScript provides) are considered host objects: user-defined object, BOM and DOM.
 
 * Difference between: `function Person(){}`, `var person = Person()`, and `var person = new Person()`?
 
